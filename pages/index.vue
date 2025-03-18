@@ -32,6 +32,32 @@
                 वह दो घंटे से गिटार बजा रहा है। → He has been playing the guitar for two hours.
                 हम सुबह से काम कर रहे हैं। → We have been working since morning.
             </div>
+
+            <div v-if="selectedTense == 'Past Perfect Continuous Tense'">
+                Used for actions that were ongoing in the past and continued up to another point in the past.
+
+                Structure:
+                Subject + had + been + Verb (ing) + Object
+            </div>
+            <div v-if="selectedTense == 'Past Perfect Tense'">
+                Used for actions that were completed before another action in the past.
+
+                Structure:
+                Subject + had + Verb (Past Participle) + Object
+            </div>
+            <div v-if="selectedTense == 'Past Continuous Tense'">
+                Used for actions that were ongoing in the past.
+
+                Structure:
+                Subject + was/were + Verb (ing) + Object
+            </div>
+            <div v-if="selectedTense == 'Simple Past Tense'">
+                Used for actions that were completed in the past.
+
+                Structure:
+                Subject + Verb (Past Form) + Object
+            </div>
+
             <h2 class="text-xl font-semibold text-center">Select Difficulty</h2>
             <DifficultySelection :levels="['Easy', 'Medium', 'Hard']" @select-difficulty="setDifficulty"
                 :selectDifficulty="selectedDifficulty" />
