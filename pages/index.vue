@@ -173,7 +173,7 @@ import { useGamification } from '@/composables/useGamification';
 const { addXP } = useGamification();
 
 const tenses = ref([]);
-const selectedParentTense = ref(null);
+const selectedParentTense = ref('Present');
 const selectedChildTense = ref(null);
 
 const selectedDifficulty = ref(null);
@@ -197,42 +197,62 @@ useSeoMeta({
 });
 
 // Reactively set tenses keys based on fetched data
+// and trigger an initial card load so SSR renders Present tense HTML
 watch(() => excelData.value, (newData) => {
     if (newData) {
         tenses.value = Object.keys(newData);
+        loadCards();
     }
 }, { immediate: true });
 
 onMounted(() => {
     updateTensesFromStorage();
-    loadCards();
 });
 
 const updateTensesFromStorage = () => {
-    var isParentSet = localStoragegetItem('parentTense') ?? null;
-    var isChildSet = localStoragegetItem('childTense') ?? null;
-    var isDifficulty = localStoragegetItem("difficulty") ?? null;
-    var cardIndex = localStoragegetItem("cardindex") ?? 0;
+    var isParentSet = localStoragegetItem('parentTense');
+    var isChildSet = localStoragegetItem('childTense');
+    var isDifficulty = localStoragegetItem("difficulty");
+    var cardIndex = localStoragegetItem("cardindex");
     
-    if (isParentSet != null && isParentSet != "") {
-        setParentTense(isParentSet);
-        if (isChildSet != null && isChildSet != "" && isChildSet != "null") {
-            setChildTense(isChildSet);
-        }
-        if (isDifficulty != null && isDifficulty != "") {
-            setDifficulty(isDifficulty);
-        }
-        if (cardIndex != null && cardIndex != "" && cardIndex != 0) {
-            currentIndex.value = parseInt(cardIndex);
-        }
+    let needsReload = false;
+    
+    // Only update if it's explicitly saved and different
+    if (isParentSet !== null && isParentSet !== "") {
+        selectedParentTense.value = isParentSet;
+        needsReload = true;
+    }
+    
+    if (isChildSet !== null && isChildSet !== "" && isChildSet !== "null") {
+        selectedChildTense.value = isChildSet;
+        needsReload = true;
+    }
+    
+    if (isDifficulty !== null && isDifficulty !== "") {
+        selectedDifficulty.value = isDifficulty;
+        needsReload = true;
+    }
+    
+    if (cardIndex !== null && cardIndex !== "" && cardIndex !== "0") {
+        currentIndex.value = parseInt(cardIndex);
+    }
+    
+    if (needsReload) {
+        loadCards();
     }
 }
 
 const setParentTense = (parent) => {
     selectedParentTense.value = parent;
     localStoragesetItem("parentTense", parent);
-    // When changing parent, reset child
-    setChildTense(null);
+    // When changing parent, reset child & reload cards immediately
+    selectedChildTense.value = null;
+    localStoragesetItem("childTense", null);
+    selectedDifficulty.value = null;
+    localStoragesetItem("difficulty", null);
+    currentIndex.value = 0;
+    
+    loadCards();
 };
 
 const setChildTense = (child) => {
@@ -251,7 +271,7 @@ const setDifficulty = (difficulty) => {
     loadCards();
 };
 
-const shuffleArray = (array) => {
+function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
@@ -259,7 +279,7 @@ const shuffleArray = (array) => {
     return array;
 };
 
-const loadCards = () => {
+function loadCards() {
     const data = excelData.value;
     if (!data) return;
     

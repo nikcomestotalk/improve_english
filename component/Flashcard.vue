@@ -1,39 +1,39 @@
 <template>
-    <div class="flex justify-center items-center h-[50vh] w-full max-w-2xl mx-auto px-4 cursor-pointer group" @click="flipCard">
+    <div class="flex justify-center items-center h-[60vh] min-h-[350px] sm:min-h-[400px] max-h-[600px] w-full max-w-2xl mx-auto px-2 sm:px-4 cursor-pointer group" @click="flipCard">
         <div class="relative w-full h-full perspective-1000">
             <div :class="['flip-card w-full h-full absolute inset-0', { 'is-flipped': flipped }]">
                 
                 <!-- Front of the card (Hindi) -->
-                <div class="flip-card-face flip-card-front bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-2xl shadow-indigo-500/30 flex justify-center items-center text-white p-8 border border-white/10 overflow-hidden">
+                <div class="flip-card-face flip-card-front bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-2xl shadow-indigo-500/30 flex justify-center items-center text-white p-6 sm:p-8 border border-white/10 overflow-hidden">
                     <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
-                    <div class="absolute top-0 right-0 p-6 mix-blend-overlay opacity-30">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/></svg>
+                    <div class="absolute top-0 right-0 p-4 sm:p-6 mix-blend-overlay opacity-30">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 sm:w-16 sm:h-16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z"/></svg>
                     </div>
-                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center z-10 leading-tight tracking-tight drop-shadow-md">
+                    <h2 class="text-2xl sm:text-4xl md:text-5xl font-bold text-center z-10 leading-snug tracking-tight drop-shadow-md">
                         {{ card.Hindi }}
                     </h2>
                 </div>
                 
                 <!-- Back of the card (English) -->
-                <div class="flip-card-face flip-card-back bg-gradient-to-br from-emerald-400 to-teal-600 rounded-2xl shadow-2xl shadow-teal-500/30 flex flex-col justify-center items-center text-white p-8 border border-white/10 overflow-hidden">
+                <div class="flip-card-face flip-card-back bg-gradient-to-br from-emerald-400 to-teal-600 rounded-2xl shadow-2xl shadow-teal-500/30 flex flex-col justify-center items-center text-white p-5 sm:p-8 border border-white/10 overflow-hidden">
                     <div class="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay"></div>
                     
-                    <div class="flex-grow flex items-center justify-center z-10 w-full mb-8">
-                        <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold text-center leading-tight tracking-tight drop-shadow-md">
+                    <div class="flex-grow flex items-center justify-center z-10 w-full mb-4 sm:mb-8">
+                        <h2 class="text-2xl sm:text-4xl md:text-5xl font-bold text-center leading-snug tracking-tight drop-shadow-md">
                             {{ card.English }}
                         </h2>
                     </div>
 
                     <div class="w-full relative z-10">
-                        <div class="w-full h-px bg-white/20 mb-4 rounded-full"></div>
-                        <div class="bg-black/20 rounded-xl p-4 backdrop-blur-sm border border-white/10">
-                            <div class="flex items-start gap-3">
-                                <div class="mt-1 bg-white/20 p-1.5 rounded-lg">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                        <div class="w-full h-px bg-white/20 mb-3 sm:mb-4 rounded-full"></div>
+                        <div class="bg-black/20 rounded-xl p-3 sm:p-4 backdrop-blur-sm border border-white/10">
+                            <div class="flex items-start gap-2 sm:gap-3">
+                                <div class="mt-1 bg-white/20 p-1 sm:p-1.5 rounded-lg shrink-0">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
                                 </div>
-                                <div>
-                                    <span class="text-xs font-semibold uppercase tracking-wider text-emerald-100/80 block mb-1">Explanation</span>
-                                    <p class="text-sm sm:text-base text-white/90 leading-relaxed font-medium">
+                                <div class="overflow-y-auto max-h-[120px] custom-scrollbar pr-1">
+                                    <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-emerald-100/80 block mb-1">Explanation</span>
+                                    <p class="text-xs sm:text-sm text-white/90 leading-relaxed font-medium">
                                         {{ card.Explanation }}
                                     </p>
                                 </div>
@@ -90,5 +90,21 @@ const flipCard = () => {
 
 .flip-card-back {
     transform: rotateY(180deg);
+}
+
+/* Custom scrollbar for explanation text on small devices */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
 }
 </style>
